@@ -1,0 +1,227 @@
+@charset "UTF-8";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #1f2b57, #4b0082);
+  color: #333;
+}
+
+/* Header e nav ficam fixos no topo */
+header, nav {
+  flex-shrink: 0;
+background-color: rgba(0,0,50,0.8);
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+}
+
+header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0,0,50,0.6);
+            padding: 10px;
+            animation: slideDown 1s ease-in-out;
+            position: relative;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #00bfff;
+        }
+
+        /* Menu hambúrguer */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background-color: rgba(0,0,50,0.9);
+                position: absolute;
+                top: 50px;
+                right: 0;
+                width: 200px;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .nav-links a {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links.active {
+                display: flex;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+        }
+
+
+/* Container ocupa todo espaço entre nav e footer */
+.container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+/* Sidebar ocupa 25% e rola internamente */
+.sidebar {
+  width: 25%;
+  background: #1e1e2f;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - -100px); /* ocupa até antes do footer */
+  overflow-y: auto; /* adiciona barra de rolagem */
+}
+
+.sidebar h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 5px;
+  flex-shrink: 0; /* título não some ao rolar */
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1; /* ocupa o espaço disponível */
+}
+
+.sidebar ul li {
+  background: #2a2a40;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Conteúdo principal ocupa 75% */
+.main-content {
+  width: 75%;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+/* Footer sempre colado no final */
+footer {
+  flex-shrink: 0;
+  background-color: rgba(0,0,50,0.8);
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+h1{
+	color: white;
+}
+
+h4 {
+	color: white;
+}
+
+textarea {
+  width: 97.7%;
+  height: 150px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Botões */
+.options {
+  margin-bottom: 20px;
+}
+
+.options button {
+  padding: 12px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #4a90e2;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.options button:hover {
+  background: #357abd;
+}
+
+/* Resultado */
+.output {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.output h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.back-button {
+  margin-bottom: 15px;
+}
+
+.back-button button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  background: #e74c3c;
+  color: #fff;
+  transition: 0.3s;
+}

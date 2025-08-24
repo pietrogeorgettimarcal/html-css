@@ -1,0 +1,377 @@
+@charset "UTF-8";
+
+html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #1f2b57, #4b0082);
+            color: white;
+        }
+        header {
+            background-color: rgba(0,0,50,0.8);
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1{
+          text-align: center;
+          color: white;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(1, 1, 46, 0.6);
+            padding: 0px;
+            animation: slideDown 1s ease-in-out;
+            position: relative;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #00bfff;
+        }
+
+        /* Menu hambúrguer */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: #fff;
+            margin: 4px 0;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background-color: rgba(0,0,50,0.9);
+                position: absolute;
+                top: 50px;
+                right: 0;
+                width: 200px;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .nav-links a {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links.active {
+                display: flex;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+        }
+
+        section {
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: orange;
+        }
+        section p {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            background-color: rgba(0,0,50,0.8);
+            text-align: center;
+            padding: 5px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsividade texto */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            section h2 {
+                font-size: 1.6rem;
+            }
+            section p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        @keyframes slideDown {
+            from {transform: translateY(-30px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+        @keyframes fadeInUp {
+            from {transform: translateY(20px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+        @keyframes zoomIn {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+
+/* ========== Variáveis de tema ========== */
+:root{
+  --bg: linear-gradient(120deg, #1f2b57, #4b0082);
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e5e7eb;
+
+  --primary: white; 
+  --primary-600: #0d4681;
+  --accent: #7c3aed;      /* Embaralhar */
+  --accent-600: #6d28d9;
+  --success: #16a34a;     /* Salvar */
+  --success-600: #15803d;
+  --danger: #ef4444;      /* Excluir */
+  --danger-600: #dc2626;
+}
+
+/* ========== Reset básico ========== */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.45;
+}
+
+/* ========== Cabeçalho, rodapé, navegação ========== */
+
+nav ul{
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 18px;
+}
+nav a{
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ========== Layout ========== */
+main{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px;
+}
+section{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+h2{
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+}
+
+/* ========== Formulários ========== */
+form{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center; /* garante botões ao lado dos campos */
+  margin-bottom: 10px;
+}
+input[type="text"],
+input[type="date"]{
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  min-width: 220px;
+  outline: none;
+}
+input::placeholder{ color: #9aa4b2; }
+
+/* ========== Botões ========== */
+button{
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .06s ease, background-color .12s ease, box-shadow .12s ease;
+  box-shadow: 0 2px 0 rgba(15,23,42,0.12);
+  background: var(--primary);
+  color: #fff;
+}
+button:hover{ transform: translateY(-1px); }
+button:active{ transform: translateY(0); }
+
+/* Botões específicos (IDs do seu HTML) */
+#embaralhar{
+  background: var(--accent);
+}
+#embaralhar:hover{ background: var(--accent-600); }
+
+#salvar, #btn-salvar{
+  background: var(--success);
+}
+#salvar:hover, #btn-salvar:hover{ background: var(--success-600); }
+
+/* Excluir ao lado de Adicionar (mesmo form) */
+#excluir,
+#excluir-senha,
+#excluir-ferias,
+#btn-del-func,
+#btn-del-ferias{
+  background: var(--danger);
+}
+#excluir:hover,
+#excluir-senha:hover,
+#excluir-ferias:hover,
+#btn-del-func:hover,
+#btn-del-ferias:hover{
+  background: var(--danger-600);
+}
+
+/* ========== Tabelas ========== */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+th, td{
+  border-bottom: 1px solid var(--border);
+  padding: 10px 8px;
+  text-align: center;
+}
+thead th{
+  background: #f3f6fb;
+  color: #334155;
+  font-weight: 700;
+}
+tbody tr:nth-child(even){
+  background: #f9fbff;
+}
+
+/* ========== Lista de SENHA (chips) ========== */
+#lista-senha{
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 6px 0 0;
+}
+#lista-senha li{
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+  color: #3730a3;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+/* ========== Estados e acessibilidade ========== */
+button:focus-visible,
+input:focus-visible{
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+/* ========== Responsivo ========== */
+@media (max-width: 680px){
+  form{ flex-direction: column; align-items: stretch; }
+  button{ width: 100%; }
+  input[type="text"], input[type="date"]{ width: 100%; min-width: 0; }
+  nav ul{ flex-wrap: wrap; }
+}
+
+/* ===== ajustes rápidos locais ===== */
+    /* tabela estilo "Excel" */
+    .excel-table { width: 100%; border-collapse: collapse; }
+    .excel-table thead th{
+      background: #e6f3ff;           /* cabeçalho azul claro */
+      border-bottom: 2px solid #9ec9ff;
+    }
+    .excel-table th, .excel-table td{
+      border: 1px solid #cdd6e1;
+      padding: 6px 8px;
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+      background-clip: padding-box;
+    }
+    .excel-table tbody tr:nth-child(even){
+      background: #fafcff;
+    }
+    /* seleção de linha (funcionários) */
+    tr.selecionado { outline: 2px solid #2563eb; outline-offset: -2px; background:#eef2ff !important; }
+    /* controles da escala, acima da tabela */
+    #escala-controles{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px; }
+    #titulo-escala{ margin: 6px 0 0; font-size: 1.1rem; font-weight: 700; }
+
+    /* Estilos de impressão (agora um fallback, caso o usuário ainda imprima a página) */
+    @media print{
+      @page {
+        size: landscape;
+        margin: 0.8cm;
+      }
+      header, nav, footer, #funcionarios, #ferias, #feriados, #resumo, #escala-controles { display: none !important; }
+      body{ background:#fff !important; font-size: 9pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      #escala { box-shadow:none !important; border:none !important; width: 100%; margin: 0; padding: 0; }
+      #titulo-escala{ text-align: center; margin-bottom: 10px; font-size: 12pt; }
+      table.excel-table{ page-break-inside: avoid; width: 100%; border-collapse: collapse; }
+      .excel-table thead th{ background: #e6f3ff !important; border-bottom: 2px solid #999 !important; }
+      .excel-table th, .excel-table td{ padding: 4px 5px; border: 1px solid #000 !important; }
+    }

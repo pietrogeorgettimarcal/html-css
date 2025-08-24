@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyro - Escala</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="../imagens/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+  <header>
+        <img src="../imagens/logo-kyro.png" alt="logo kyro" width="300" height="300">
+    </header>
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="#funcionarios">Funcionários</a></li>
+                <li><a href="#ferias">Férias</a></li>
+                <li><a href="#feriados">Feriados</a></li>
+                <li><a href="#escala">Escala</a></li>
+                <li><a href="#resumo">Resumo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+  <h1>Escalonamento de Funcionários</h1>
+
+<main>
+  <section id="funcionarios">
+    <h2>Adicionar / Excluir Funcionário</h2>
+    <form id="form-funcionario" autocomplete="off">
+      <input type="text" id="nome" placeholder="Nome completo" required>
+      <input type="text" id="matricula" placeholder="Número da matrícula" required>
+      <button type="submit">Adicionar</button>
+      <button type="button" id="excluir">Excluir selecionado</button>
+    </form>
+    <table class="excel-table" aria-label="Funcionários">
+      <thead><tr><th>Nome</th><th>Matrícula</th></tr></thead>
+      <tbody id="lista-funcionarios"></tbody>
+    </table>
+
+    <h2>Funcionários da Senha</h2>
+    <form id="form-senha" autocomplete="off">
+      <input type="text" id="nome-senha" placeholder="Nome do funcionário da Senha" required>
+      <button type="submit">Adicionar</button>
+      <button type="button" id="excluir-senha">Excluir selecionado</button>
+    </form>
+    <table class="excel-table" aria-label="Senha">
+      <thead><tr><th>Nome</th></tr></thead>
+      <tbody id="lista-senha"></tbody>
+    </table>
+  </section>
+
+  <section id="ferias">
+    <h2>Férias</h2>
+    <form id="form-ferias" autocomplete="off">
+      <input type="text" id="nome-ferias" placeholder="Nome do funcionário" required>
+      <input type="date" id="inicio-ferias" required>
+      <input type="date" id="fim-ferias" required>
+      <button type="submit">Registrar Férias</button>
+      <button type="button" id="excluir-ferias">Excluir selecionada</button>
+    </form>
+    <table class="excel-table" aria-label="Férias">
+      <thead><tr><th>Nome</th><th>Início</th><th>Fim</th></tr></thead>
+      <tbody id="lista-ferias"></tbody>
+    </table>
+  </section>
+
+  <section id="feriados">
+    <h2>Feriados Nacionais (auto)</h2>
+    <table class="excel-table" aria-label="Feriados calculados">
+      <thead><tr><th>Data</th><th>Nome</th></tr></thead>
+      <tbody id="lista-feriados"></tbody>
+    </table>
+  </section>
+
+  <section id="escala">
+    <h2>Escala de Funcionários</h2>
+    <div id="escala-controles">
+      <label>Mês:
+        <select id="mes-select">
+          <option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option>
+          <option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option>
+          <option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option>
+          <option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
+        </select>
+      </label>
+      <label>Ano:
+        <input type="number" id="ano-input" min="1900" max="2100" step="1" style="width:110px;">
+      </label>
+      <button id="gerar-escala-btn" type="button">Gerar Escala</button>
+      <button id="embaralhar" type="button">🔄 Embaralhar</button>
+      <button id="salvar" type="button">💾 Salvar</button>
+      <button id="baixar-excel-btn" type="button">⬇️ Baixar Excel</button>
+    </div>
+
+    <h3 id="titulo-escala"></h3>
+
+    <table class="excel-table">
+      <thead>
+        <tr>
+          <th>Dia</th><th>Dia da Semana</th><th>Senha</th><th>Fixo 1</th><th>Fixo 2</th>
+          <th>1° Suplente</th><th>2° Suplente</th><th>3° Suplente</th><th>4° Suplente</th><th>5° Suplente</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-escala"></tbody>
+    </table>
+  </section>
+
+  <section id="resumo">
+    <h2>Resumo de Escalação</h2>
+    <table class="excel-table" aria-label="Resumo de Escalação">
+      <thead>
+        <tr>
+          <th>Funcionário</th><th>Vezes como Fixo</th><th>Vezes como Suplente</th><th>Total de Turnos</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-resumo"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Escalonamento de Funcionários</p>
+</footer>
+
+<script>
+  // ================== Estado (localStorage) ==================
+  let funcionarios = JSON.parse(localStorage.getItem("funcionarios")) || [];
+  let senha = JSON.parse(localStorage.getItem("senha")) || [];
+  let ferias = JSON.parse(localStorage.getItem("ferias")) || [];
+  let prefs = JSON.parse(localStorage.getItem("prefsEscala")) || { mes: new Date().getMonth(), ano: new Date().getFullYear(), salt: 0 };
+
+  // ================== Utilidades ==================
+  const ptMeses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  const ptDias = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+  function salvarColecoes(){ localStorage.setItem("funcionarios", JSON.stringify(funcionarios)); localStorage.setItem("senha", JSON.stringify(senha)); localStorage.setItem("ferias", JSON.stringify(ferias)); }
+  function salvarPrefs(){ localStorage.setItem("prefsEscala", JSON.stringify(prefs)); }
+  function diasNoMes(ano, mes){ return new Date(ano, mes+1, 0).getDate(); }
+  function fmtISO(d){ const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; }
+  function dataPascoa(ano){ const a=ano%19,b=Math.floor(ano/100),c=ano%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mes=Math.floor((h+l-7*m+114)/31)-1,dia=((h+l-7*m+114)%31)+1; return new Date(ano,mes,dia); }
+  function addDias(date,dias){ const d=new Date(date); d.setDate(d.getDate()+dias); return d; }
+  function feriadosDoAno(ano){ const pascoa=dataPascoa(ano),carnavalSeg=addDias(pascoa,-48),carnavalTer=addDias(pascoa,-47),sextaSanta=addDias(pascoa,-2),corpusChristi=addDias(pascoa,60); const fixos=[{data:new Date(ano,0,1),nome:"Confraternização Universal"},{data:new Date(ano,3,21),nome:"Tiradentes"},{data:new Date(ano,4,1),nome:"Dia do Trabalho"},{data:new Date(ano,8,7),nome:"Independência do Brasil"},{data:new Date(ano,9,12),nome:"Nossa Senhora Aparecida"},{data:new Date(ano,10,2),nome:"Finados"},{data:new Date(ano,10,15),nome:"Proclamação da República"},{data:new Date(ano,11,25),nome:"Natal"},{data:new Date(ano,10,20),nome:"Consciência Negra"}]; const moveis=[{data:carnavalSeg,nome:"Carnaval (segunda)"},{data:carnavalTer,nome:"Carnaval (terça)"},{data:sextaSanta,nome:"Sexta-Feira Santa"},{data:pascoa,nome:"Páscoa"},{data:corpusChristi,nome:"Corpus Christi"}]; return [...fixos,...moveis].map(x=>({iso:fmtISO(x.data),nome:x.nome,data:x.data})).sort((a,b)=>a.data-b.data); }
+  function mapaFeriadosAno(ano){ const m=new Map(); feriadosDoAno(ano).forEach(f=>m.set(f.iso,f.nome)); return m; }
+  function seededRandom(seed){ let t=seed%2147483647; if(t<=0)t+=2147483646; return function(){return(t=t*16807%2147483647)/2147483647;}; }
+  function shuffleSeeded(array,seed){ const rand=seededRandom(seed),a=[...array]; for(let i=a.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+  // ================== DOM refs ==================
+  const listaFuncionariosEl=document.getElementById("lista-funcionarios"),listaSenhaEl=document.getElementById("lista-senha"),listaFeriasEl=document.getElementById("lista-ferias"),listaFeriadosEl=document.getElementById("lista-feriados"),tabelaEscalaEl=document.getElementById("tabela-escala"),tituloEscalaEl=document.getElementById("titulo-escala"),mesSelect=document.getElementById("mes-select"),anoInput=document.getElementById("ano-input"),tabelaResumoEl=document.getElementById("tabela-resumo");
+
+  // ================== Render básico ==================
+  function renderFuncionarios(){ listaFuncionariosEl.innerHTML=""; funcionarios.forEach((f,idx)=>{ const tr=document.createElement("tr"); tr.dataset.index=String(idx); tr.innerHTML=`<td>${f.nome}</td><td>${f.matricula}</td>`; tr.addEventListener('click',()=>{ listaFuncionariosEl.querySelectorAll('tr').forEach(x=>x.classList.remove('selecionado')); tr.classList.add('selecionado'); }); listaFuncionariosEl.appendChild(tr); }); }
+  function renderSenha(){ listaSenhaEl.innerHTML=""; senha.forEach((n,idx)=>{ const tr=document.createElement("tr"); tr.dataset.index=String(idx); tr.innerHTML=`<td>${n}</td>`; tr.addEventListener('click',()=>{ listaSenhaEl.querySelectorAll('tr').forEach(x=>x.classList.remove('selecionado')); tr.classList.add('selecionado'); }); listaSenhaEl.appendChild(tr); }); }
+  function renderFerias(){ listaFeriasEl.innerHTML=""; ferias.forEach((f,idx)=>{ const tr=document.createElement("tr"); tr.dataset.index=String(idx); tr.innerHTML=`<td>${f.nome}</td><td>${f.inicio}</td><td>${f.fim}</td>`; tr.addEventListener('click',()=>{ listaFeriasEl.querySelectorAll('tr').forEach(x=>x.classList.remove('selecionado')); tr.classList.add('selecionado'); }); listaFeriasEl.appendChild(tr); }); }
+  function renderFeriadosAno(ano){ const fer=feriadosDoAno(ano); listaFeriadosEl.innerHTML=""; fer.forEach(f=>{ const d=f.data,dd=String(d.getDate()).padStart(2,'0'),mm=String(d.getMonth()+1).padStart(2,'0'); const tr=document.createElement("tr"); tr.innerHTML=`<td>${dd}/${mm}/${ano}</td><td>${f.nome}</td>`; listaFeriadosEl.appendChild(tr); }); }
+
+  // ================== Regras ==================
+  function estaDeFeriasNoDia(nome,date){ return ferias.some(f=>{ if(f.nome!==nome)return false; const ini=new Date(f.inicio+"T00:00:00"),fim=new Date(f.fim+"T23:59:59"); return date>=ini&&date<=fim; }); }
+
+  function gerarEscalaMes(){
+    const ano=prefs.ano, mes=prefs.mes, ferMap=mapaFeriadosAno(ano), totalDias=diasNoMes(ano,mes);
+    tituloEscalaEl.textContent=`${ptMeses[mes]} de ${ano}`;
+    tabelaEscalaEl.innerHTML="";
+    const runningCount = {};
+    funcionarios.forEach(f => { runningCount[f.nome] = { fixo: 0, suplente: 0, total: 0 }; });
+    const baseSenha=[...senha];
+    let previousDayAssignments = [];
+    for(let dia=1; dia<=totalDias; dia++){
+      const data=new Date(ano,mes,dia), iso=fmtISO(data);
+      if(ferMap.has(iso)) continue;
+      const diaSemana = ptDias[data.getDay()], ativos = funcionarios.map(f=>f.nome).filter(n => !estaDeFeriasNoDia(n,data));
+      if (ativos.length === 0) continue;
+      const seedBase = parseInt(`${ano}${String(mes+1).padStart(2,'0')}${String(dia).padStart(2,'0')}${prefs.salt}`);
+      let shuffledAtivos = shuffleSeeded(ativos, seedBase);
+      shuffledAtivos.sort((a, b) => { const countA = runningCount[a], countB = runningCount[b]; if (countA.total !== countB.total) return countA.total - countB.total; if (countA.fixo !== countB.fixo) return countA.fixo - countB.fixo; return 0; });
+      const dailyCrew = shuffledAtivos.slice(0, 7);
+      dailyCrew.sort((a,b) => runningCount[a].fixo - runningCount[b].fixo);
+      const fixoTeam = dailyCrew.slice(0, 2), suplenteTeam = dailyCrew.slice(2, 7);
+      let escolhidos = shuffleSeeded([...fixoTeam, ...suplenteTeam], seedBase + 1);
+      if (previousDayAssignments.length > 0) {
+          for (let i = 0; i < escolhidos.length; i++) {
+            if (escolhidos[i] === previousDayAssignments[i]) {
+              const swapWith = (i + 1) % escolhidos.length;
+              if (escolhidos[swapWith] !== previousDayAssignments[i] && escolhidos[i] !== previousDayAssignments[swapWith]) { [escolhidos[i], escolhidos[swapWith]] = [escolhidos[swapWith], escolhidos[i]]; }
+            }
+          }
+      }
+      (escolhidos[0] && runningCount[escolhidos[0]]) ? (runningCount[escolhidos[0]].fixo++, runningCount[escolhidos[0]].total++) : null;
+      (escolhidos[1] && runningCount[escolhidos[1]]) ? (runningCount[escolhidos[1]].fixo++, runningCount[escolhidos[1]].total++) : null;
+      for (let i=2; i<7; i++) { (escolhidos[i] && runningCount[escolhidos[i]]) ? (runningCount[escolhidos[i]].suplente++, runningCount[escolhidos[i]].total++) : null; }
+      const senhaDia = (baseSenha.length ? shuffleSeeded(baseSenha, seedBase + 2)[0] : "");
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>${String(dia).padStart(2,'0')}</td><td>${diaSemana}</td><td>${senhaDia||""}</td><td>${escolhidos[0]||""}</td><td>${escolhidos[1]||""}</td><td>${escolhidos[2]||""}</td><td>${escolhidos[3]||""}</td><td>${escolhidos[4]||""}</td><td>${escolhidos[5]||""}</td><td>${escolhidos[6]||""}</td>`;
+      tabelaEscalaEl.appendChild(tr);
+      previousDayAssignments=[...escolhidos];
+    }
+    gerarResumoContagem();
+  }
+
+  function gerarResumoContagem() {
+    tabelaResumoEl.innerHTML = "";
+    if (funcionarios.length === 0) return;
+    const contagem = {};
+    funcionarios.forEach(f => { contagem[f.nome] = { fixo: 0, suplente: 0, total: 0 }; });
+    const rows = tabelaEscalaEl.querySelectorAll("tr");
+    rows.forEach(row => {
+      const cells = row.querySelectorAll("td");
+      if (cells.length < 10) return;
+      const fixo1=cells[3].textContent, fixo2=cells[4].textContent;
+      if (fixo1 && contagem[fixo1]) contagem[fixo1].fixo++;
+      if (fixo2 && contagem[fixo2]) contagem[fixo2].fixo++;
+      for (let i = 5; i <= 9; i++) { const suplente=cells[i].textContent; if (suplente && contagem[suplente]) contagem[suplente].suplente++; }
+    });
+    Object.keys(contagem).sort().forEach(nome => {
+      const dados = contagem[nome];
+      dados.total = dados.fixo + dados.suplente;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${nome}</td><td>${dados.fixo}</td><td>${dados.suplente}</td><td>${dados.total}</td>`;
+      tabelaResumoEl.appendChild(tr);
+    });
+  }
+
+  // --- [NOVA FUNÇÃO] PARA EXPORTAR PARA EXCEL ---
+  function exportarParaExcel() {
+    // 1. Pega as tabelas HTML
+    const escalaTable = document.querySelector("#escala .excel-table");
+    const resumoTable = document.querySelector("#resumo .excel-table");
+
+    // 2. Converte as tabelas para planilhas do Excel
+    const ws1 = XLSX.utils.table_to_sheet(escalaTable);
+    const ws2 = XLSX.utils.table_to_sheet(resumoTable);
+
+    // 3. Cria um novo "livro" (workbook) do Excel
+    const wb = XLSX.utils.book_new();
+
+    // 4. Adiciona as planilhas ao livro com nomes personalizados
+    XLSX.utils.book_append_sheet(wb, ws1, "Escala Mensal");
+    XLSX.utils.book_append_sheet(wb, ws2, "Resumo de Turnos");
+
+    // 5. Gera um nome de arquivo dinâmico e inicia o download
+    const nomeArquivo = `Escala_${ptMeses[prefs.mes]}_${prefs.ano}.xlsx`;
+    XLSX.writeFile(wb, nomeArquivo);
+  }
+
+  // ================== Eventos ==================
+  document.getElementById("form-funcionario").addEventListener("submit",e=>{ e.preventDefault(); const nome=document.getElementById("nome").value.trim(),matricula=document.getElementById("matricula").value.trim(); if(!nome||!matricula)return; const existe=funcionarios.some(f=>f.nome.trim().toLowerCase()===nome.toLowerCase()&&f.matricula.trim().toLowerCase()===matricula.toLowerCase()); if(existe){alert("Já existe um funcionário com o mesmo Nome e Matrícula.");return;} funcionarios.push({nome,matricula}); salvarColecoes(); renderFuncionarios(); e.target.reset(); });
+  document.getElementById("excluir").addEventListener("click",()=>{ const sel=listaFuncionariosEl.querySelector("tr.selecionado"); if(!sel){alert("Selecione um funcionário para excluir.");return;} const idx=parseInt(sel.dataset.index,10); funcionarios.splice(idx,1); salvarColecoes(); renderFuncionarios(); });
+  document.getElementById("form-senha").addEventListener("submit",e=>{ e.preventDefault(); const n=document.getElementById("nome-senha").value.trim(); if(!n)return; if(senha.map(x=>x.toLowerCase()).includes(n.toLowerCase())){alert("Esse funcionário já está na lista de Senha.");return;} senha.push(n); salvarColecoes(); renderSenha(); e.target.reset(); });
+  document.getElementById("excluir-senha").addEventListener("click",()=>{ const sel=listaSenhaEl.querySelector("tr.selecionado"); if(!sel){alert("Selecione um nome na lista de Senha para excluir.");return;} const idx=parseInt(sel.dataset.index,10); senha.splice(idx,1); salvarColecoes(); renderSenha(); });
+  document.getElementById("form-ferias").addEventListener("submit",e=>{ e.preventDefault(); const nome=document.getElementById("nome-ferias").value.trim(),inicio=document.getElementById("inicio-ferias").value,fim=document.getElementById("fim-ferias").value; if(!nome||!inicio||!fim)return; ferias.push({nome,inicio,fim}); salvarColecoes(); renderFerias(); e.target.reset(); });
+  document.getElementById("excluir-ferias").addEventListener("click",()=>{ const sel=listaFeriasEl.querySelector("tr.selecionado"); if(!sel){alert("Selecione um registro de férias para excluir.");return;} const idx=parseInt(sel.dataset.index,10); ferias.splice(idx,1); salvarColecoes(); renderFerias(); });
+  document.getElementById("gerar-escala-btn").addEventListener("click",()=>{ prefs.mes=parseInt(mesSelect.value,10); prefs.ano=parseInt(anoInput.value,10); salvarPrefs(); renderFeriadosAno(prefs.ano); gerarEscalaMes(); });
+  document.getElementById("embaralhar").addEventListener("click",()=>{ prefs.salt=(prefs.salt||0)+1; salvarPrefs(); gerarEscalaMes(); });
+  document.getElementById("salvar").addEventListener("click",()=>{ salvarColecoes(); salvarPrefs(); alert("Dados salvos."); });
+  
+  // [MODIFICADO] Evento de clique para baixar o arquivo Excel
+  document.getElementById("baixar-excel-btn").addEventListener("click", exportarParaExcel);
+
+  // ================== Boot ==================
+  document.getElementById("mes-select").value=String(prefs.mes);
+  document.getElementById("ano-input").value=String(prefs.ano);
+  renderFuncionarios();
+  renderSenha();
+  renderFerias();
+  renderFeriadosAno(prefs.ano);
+  gerarEscalaMes();
+</script>
+</body>
+</html>

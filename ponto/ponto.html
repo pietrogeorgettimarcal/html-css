@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyro - Ponto Eletrônico</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../imagens/favicon.ico" type="image/x-icon">	
+</head>
+<body>
+    <header>
+        <h1>Ponto Eletrônico</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#funcionarios">Adicionar/Excluir Funcionário</a></li>
+            <li><a href="#ferias">Férias</a></li>
+            <li><a href="#ponto">Ponto Eletrônico</a></li>
+            <li><a href="#horarios">Horários</a></li>
+            <li><a href="#assinaturas">Assinaturas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Aba Funcionários -->
+        <section id="funcionarios">
+            <h2>Adicionar / Excluir Funcionário</h2>
+            <form id="form-funcionario">
+                <input type="text" placeholder="Nome completo" required>
+                <input type="text" placeholder="Número da matrícula" required>
+                <button type="submit">Adicionar</button>
+                <button type="button" id="excluir">Excluir</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-funcionarios">
+                    <!-- Funcionários aparecerão aqui -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Aba Férias -->
+        <section id="ferias">
+            <h2>Férias</h2>
+            <form id="form-ferias">
+                <input type="text" placeholder="Nome do funcionário" required>
+                <input type="date" placeholder="Data de início" required>
+                <input type="date" placeholder="Data de fim" required>
+                <button type="submit">Registrar Férias</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Início</th>
+                        <th>Fim</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-ferias">
+                    <!-- Férias aparecerão aqui -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Aba Ponto Eletrônico -->
+        <section id="ponto">
+            <h2>Ponto Eletrônico</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dia</th>
+                        <th>Dia da Semana</th>
+                        <th>Entrada 1</th>
+                        <th>Saída 1</th>
+                        <th>Entrada 2</th>
+                        <th>Saída 2</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-ponto">
+                    <!-- Dias do dia 11 até dia 10 do mês seguinte serão preenchidos aqui -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Aba Horários -->
+        <section id="horarios">
+            <h2>Horários</h2>
+            <form id="form-horarios">
+                <label>Chegada: <input type="time" required></label>
+                <label>Saída para Almoço: <input type="time" required></label>
+                <label>Retorno do Almoço: <input type="time" required></label>
+                <label>Saída: <input type="time" required></label>
+                <button type="submit">Salvar Horários</button>
+            </form>
+        </section>
+
+        <!-- Aba Assinaturas -->
+        <section id="assinaturas">
+            <h2>Assinaturas</h2>
+            <div class="assinatura">
+                <label>Assinatura do Funcionário:</label>
+                <input type="text" placeholder="Assinatura">
+            </div>
+            <div class="assinatura">
+                <label>Assinatura da Chefia:</label>
+                <input type="text" placeholder="Assinatura da chefia">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Ponto Eletrônico</p>
+    </footer>
+</body>
+</html>
