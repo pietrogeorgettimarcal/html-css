@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyro Fluxo Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <img src="../imagens/logo-kyro.png" alt="logo kyro" width="300" height="300">
+    </header>
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="../kyro/kyro.html">Início</a>
+            <a href="#histórico">Histórico</a>
+        </div>
+    </nav>
+
+    <!-- Container principal (sidebar + conteúdo) -->
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Histórico</h2>
+            <ul id="history-list">
+                <li>Texto original 1 → Texto aprimorado</li>
+                <li>Texto original 2 → Texto resumido</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <h1>Texto com IA</h1>
+            <h4>Insira seu texto abaixo e escolha como deseja aprimorá-lo.</h4> <br>
+
+            <!-- Caixa de texto -->
+            <textarea id="input-text" placeholder="Digite ou cole seu texto aqui..."></textarea>
+
+            <!-- Botões de opções -->
+            <div class="options">
+                <button onclick="processText('simples')">Texto Simples</button>
+                <button onclick="processText('resumido')">Texto Técnico e Resumido</button>
+                <button onclick="processText('detalhado')">Texto Técnico e Detalhado</button>
+            </div>
+
+            <!-- Resultado -->
+            <section class="output">
+                <h2>Resultado</h2>
+                <p id="output-text">O texto aprimorado aparecerá aqui.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2025 Kyro - Todos os direitos reservados.
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("active");
+        }
+    </script>
+    <script>
+        function processText(type) {
+          let input = document.getElementById("input-text").value;
+          let output = document.getElementById("output-text");
+
+          if (input.trim() === "") {
+            output.innerText = "Digite um texto para aprimorar.";
+            return;
+          }
+
+          // Simulação (aqui entraria a IA de verdade)
+          if (type === "simples") {
+            output.innerText = "Texto corrigido (simples): " + input;
+          } else if (type === "resumido") {
+            output.innerText = "Texto resumido: " + input.substring(0, 50) + "...";
+          } else if (type === "detalhado") {
+            output.innerText = "Texto detalhado (expansão e correção): " + input + " (mais informações adicionadas)";
+          }
+
+          // Adicionar ao histórico
+          let history = document.getElementById("history-list");
+          let li = document.createElement("li");
+          li.innerText = input + " → " + output.innerText;
+          history.prepend(li);
+        }
+    </script>
+</body>
+</html>

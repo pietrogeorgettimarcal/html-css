@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyro Fluxo Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <img src="../imagens/logo-kyro.png" alt="logo kyro" width="300" height="300">
+    </header>
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="../kyro/kyro.html">Início</a>
+        </div>
+    </nav>
+<div class="wrap"> <br>
+<h1>Comparador de Arquivos de Simulações</h1>
+<p class="lead">Arraste <strong>dois arquivos de texto</strong> (ex.: .txt, .pdf) para a área abaixo — ou clique para selecionar — e veja a comparação logo em seguida.</p>
+
+
+<div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Arraste e solte seus arquivos aqui ou clique para selecionar">
+<div class="icon">📁</div>
+<div>
+<strong>Solte aqui</strong> até <strong>2 arquivos</strong>.<br/>
+<span class="muted">Também é possível clicar para escolher.</span>
+</div>
+<div>
+<button id="browse">Escolher arquivos</button>
+<input id="fileInput" type="file" multiple hidden accept=".txt,.md,.csv,.json,.xml,.html,.css,.js,.log,.ini,.yaml,.yml,.pdf" />
+</div>
+</div> <br>
+
+<h1>Resusltado da Comparação</h1>
+
+<div class="files" id="files"></div>
+<div class="result" id="result" hidden>
+<header>
+<h2>Diferenças</h2>
+<div class="tabs">
+<button class="tab active" data-mode="side">Lado a lado</button>
+<button class="tab" data-mode="unified">Unificado</button>
+</div>
+</header>
+<div class="diff-container" id="diffContainer"></div>
+<div class="legend">
+<span class="badge">+ Adição</span>
+<span class="badge">− Remoção</span>
+<span class="badge">± Alteração</span>
+<span class="badge" id="stats"></span>
+<span class="footer-note">Dica: compare arquivos de configuração, textos, códigos e CSVs. Arquivos binários não são suportados.</span>
+</div>
+</div>
+</div>
+
+<script src="script.js"></script>
+
+    <footer>
+        &copy; 2025 Kyro - Todos os direitos reservados.
+    </footer>
+
+</body>
+</html>

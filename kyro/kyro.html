@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyro Fluxo Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <img src="../imagens/logo-kyro.png" alt="logo kyro" width="300" height="300">
+    </header>
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#sobre">Sobre</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#login">Login</a>
+        </div>
+    </nav>
+
+    <section id="sobre">
+        <h2>Sobre a Kyro</h2>
+        <p>
+            A <strong>Kyro</strong> é um sistema inovador que utiliza Inteligência Artificial para transformar a maneira como você trabalha.
+	    Mais do que uma ferramenta tecnológica, ela foi criada para ser sua parceira no dia a dia, auxiliando na execução de tarefas, automatizando 
+            processos e oferecendo insights valiosos para a tomada de decisão. </p>
+
+         <p>
+	    O diferencial da <strong>Kyro</strong> está em sua proposta: não substituir pessoas, mas potencializá-las.
+            Acreditamos que a verdadeira força da tecnologia está em caminhar lado a lado com o ser humano, permitindo que cada profissional utilize seu 
+            tempo e energia em atividades estratégicas, criativas e de maior impacto. </p>
+
+         <h3>Nossa visão:</h3>
+
+         <p>Na <strong>Kyro</strong>, acreditamos em um futuro onde humanos e inteligência artificial trabalham juntos, combinando criatividade, emoção e 
+	    raciocínio humano com a precisão e velocidade da tecnologia.
+            O resultado é um ambiente de trabalho mais leve, produtivo e inteligente, onde cada desafio se torna uma oportunidade de crescimento.
+        </p>
+    </section>
+
+    <section id="servicos">
+        <h2>Nossos Serviços</h2>
+        <div class="services">
+            <div class="card">
+                <a href="../simulacoes/simulacoes.html"><img src="https://img.icons8.com/fluency/96/simulation.png" alt="Comparação de simulações"></a>
+                <h3>Comparador de Simulações</h3>
+                <p>Compare Simulações para gerir a melhor opção de parcelamento.</p>
+            </div>
+            <div class="card">
+                <a href="../texto-ia/texto-ia.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Texto com IA"></a>
+                <h3>Texto com IA</h3>
+                <p>Aprimore sua escrita, corrija ortografia e receba sugestões inteligentes para melhorar seus textos.</p>
+            </div>
+            <div class="card">
+                <a href="../escala/escala.html"><img src="https://img.icons8.com/color/96/conference-call.png" alt="Escalonamento de Funcionários"></a>
+                <h3>Escalonamento de Funcionários</h3>
+                <p>Organize escalas de trabalho de forma prática e sem repetições de nomes.</p>
+            </div>
+            <div class="card">
+                <a href="../ponto/ponto.html"><img src="https://img.icons8.com/color/96/time-machine.png" alt="Ponto Eletrônico"></a>
+                <h3>Ponto Eletrônico</h3>
+                <p>Registre a entrada e saída dos funcionários de forma digital e segura.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="login">
+        <h2>Acesse sua Conta</h2>
+        <p>Faça login para acessar todas as funcionalidades da <strong>Kyro</strong>.</p>
+        <a href="#" class="login-btn">Entrar com Google</a>
+    </section>
+
+    <footer>
+        &copy; 2025 Kyro - Todos os direitos reservados.
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("active");
+        }
+    </script>
+</body>
+</html>

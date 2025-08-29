@@ -1,0 +1,269 @@
+/* Estilos Gerais */
+:root {
+    --cor-primaria: #003366;
+    --cor-secundaria: #f4f4f4;
+    --cor-borda: #ccc;
+    --cor-fundo-especial: #e0e0e0;
+    --cor-acao: #28a745;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: var(--cor-secundaria);
+    color: #333;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--cor-primaria);
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Navegação */
+.menu-navegacao {
+    background-color: var(--cor-primaria);
+    padding: 10px 0;
+}
+
+.menu-navegacao ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-navegacao a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.menu-navegacao a:hover, .menu-navegacao a.active {
+    background-color: #0055a4;
+}
+
+/* Gerenciamento de Páginas */
+.page {
+    display: none; /* Esconde todas as páginas por padrão */
+}
+
+.page.active {
+    display: block; /* Mostra apenas a página ativa */
+}
+
+/* Cabeçalho das Páginas e Controles */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.page-header h2 {
+    color: var(--cor-primaria);
+}
+
+.controles-data select, .controles-data label {
+    font-size: 1.1em;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+/* Área de Botões de Ação */
+.area-botoes-acao {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-acao {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s, background-color 0.3s;
+}
+
+.btn-acao:hover {
+    opacity: 0.85;
+}
+
+.btn-acao:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #6c757d;
+}
+
+#btn-salvar { background-color: var(--cor-primaria); }
+#btn-pdf { background-color: #dc3545; }
+#btn-excel { background-color: var(--cor-acao); }
+
+
+/* Estilo da Folha de Ponto (com ajustes para impressão) */
+.folha-ponto {
+    background-color: white;
+    border: 1px solid var(--cor-borda);
+    padding: 15px; /* Reduzido */
+    margin-bottom: 30px;
+    page-break-inside: avoid;
+    font-size: 9.5px; /* Reduzido para compactar */
+}
+
+.cabecalho-ponto {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px; /* Reduzido */
+    margin-bottom: 8px; /* Reduzido */
+}
+
+.cabecalho-ponto img {
+    width: 70px; /* Reduzido */
+    height: auto;
+}
+
+.cabecalho-ponto .titulo-prefeitura {
+    text-align: center;
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 1.1em; /* Relativo ao font-size da folha-ponto */
+}
+
+.info-funcionario {
+    margin-top: 8px; /* Reduzido */
+    margin-bottom: 8px; /* Reduzido */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3px; /* Reduzido */
+}
+
+h3.titulo-frequencia {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em; /* Relativo */
+    margin: 8px 0; /* Reduzido */
+}
+
+.info-periodo {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px; /* Reduzido */
+    font-size: 1.1em; /* Relativo */
+}
+
+.tabela-ponto {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px; /* Reduzido */
+}
+
+.tabela-ponto th, .tabela-ponto td {
+    border: 1px solid var(--cor-borda);
+    padding: 4px; /* Reduzido */
+    text-align: center;
+}
+
+.tabela-ponto th {
+    background-color: var(--cor-secundaria);
+}
+
+/* Fundo cinza para dias especiais */
+.folga, .ferias, .feriado {
+    background-color: var(--cor-fundo-especial) !important;
+}
+
+.evento-especial-texto {
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.rodape-ponto {
+    margin-top: 10px; /* Reduzido */
+}
+
+.resumo-horas {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr;
+    gap: 5px; /* Reduzido */
+    margin-bottom: 20px; /* Reduzido */
+    font-weight: bold;
+}
+
+.assinaturas-ponto {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-top: 30px; /* Reduzido */
+}
+
+.linha-assinatura {
+    border-bottom: 1px solid #000;
+    width: 220px; /* Reduzido */
+    margin-bottom: 5px;
+}
+
+/* Formulários */
+form {
+    background-color: white;
+    padding: 25px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+}
+
+form input, form select, form button {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid var(--cor-borda);
+    border-radius: 4px;
+}
+
+form button {
+    background-color: var(--cor-primaria);
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0055a4;
+}
+
+#lista-feriados ul {
+    list-style: none;
+    padding: 0;
+}
+
+#lista-feriados li {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid var(--cor-borda);
+    margin-bottom: 5px;
+    border-radius: 4px;
+}

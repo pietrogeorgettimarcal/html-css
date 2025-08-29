@@ -1,0 +1,200 @@
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header img {
+    width: 150px; /* Ajustado para um tamanho mais razoável */
+    height: auto;
+}
+
+h1, h2, h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main {
+    padding: 20px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/* Navegação */
+nav {
+    background: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+.nav-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-links li {
+    margin: 5px 15px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-toggle { display: none; } /* Para simplicidade, menu sempre visível em desktop */
+
+/* Formulários */
+form, .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button[type="button"] {
+    background-color: #6c757d;
+}
+
+button[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+#excluir-funcionario, #excluir-senha, #excluir-ferias, #excluir-meta {
+    background-color: #dc3545;
+}
+#excluir-funcionario:hover, #excluir-senha:hover, #excluir-ferias:hover, #excluir-meta:hover {
+    background-color: #c82333;
+}
+
+
+/* Tabelas */
+.excel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.excel-table th, .excel-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.excel-table thead {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.excel-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos Específicos da Lógica */
+.excel-table tbody tr.selecionado {
+    background-color: #d4e6ff !important;
+}
+
+.escala-incompleta td {
+    background-color: #fff0f0 !important;
+    color: #d00 !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+.desvio-bom { color: green; }
+.desvio-medio { color: #b58300; }
+.desvio-ruim { color: red; font-weight: bold; }
+
+/* Controles da Escala */
+#escala-controles {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#ano-input {
+    width: 80px;
+}
+
+#titulo-escala {
+    margin: 20px 0;
+}
+
+#resumo-ferias-mes {
+    background-color: #eef;
+    border-left: 5px solid #007bff;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .menu-toggle { display: block; cursor: pointer; } /* Adicionar lógica JS se quiser menu funcional */
+    form, #escala-controles {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kyro - Escala</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <img src="../imagens/logo-kyro.png" alt="logo kyro" width="300" height="300">
+    </header>
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="#funcionarios">Funcionários</a></li>
+                <li><a href="#ferias">Férias</a></li>
+                <li><a href="#metas">Metas e Limites</a></li>
+                <li><a href="#feriados">Feriados</a></li>
+                <li><a href="#escala">Escala</a></li>
+                <li><a href="#resumo">Resumo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Escalonamento de Funcionários</h1>
+
+    <main>
+        <section id="funcionarios">
+            <h2>Adicionar / Excluir Funcionário</h2>
+            <form id="form-funcionario" autocomplete="off">
+                <input type="text" id="nome" placeholder="Nome completo" required>
+                <input type="text" id="matricula" placeholder="Número da matrícula" required>
+                <button type="submit">Adicionar</button>
+                <button type="button" id="excluir-funcionario">Excluir selecionado</button>
+            </form>
+            <table class="excel-table" aria-label="Funcionários">
+                <thead><tr><th>Nome</th><th>Matrícula</th></tr></thead>
+                <tbody id="lista-funcionarios"></tbody>
+            </table>
+
+            <h2>Funcionários da Senha</h2>
+            <form id="form-senha" autocomplete="off">
+                <input type="text" id="nome-senha" placeholder="Nome do funcionário da Senha" required>
+                <button type="submit">Adicionar</button>
+                <button type="button" id="excluir-senha">Excluir selecionado</button>
+            </form>
+            <table class="excel-table" aria-label="Senha">
+                <thead><tr><th>Nome</th></tr></thead>
+                <tbody id="lista-senha"></tbody>
+            </table>
+        </section>
+
+        <section id="ferias">
+            <h2>Férias</h2>
+            <form id="form-ferias" autocomplete="off">
+                <input type="text" id="nome-ferias" placeholder="Nome do funcionário" required>
+                <input type="date" id="inicio-ferias" required>
+                <input type="date" id="fim-ferias" required>
+                <button type="submit">Registrar Férias</button>
+                <button type="button" id="excluir-ferias">Excluir selecionada</button>
+            </form>
+            <table class="excel-table" aria-label="Férias">
+                <thead><tr><th>Nome</th><th>Início</th><th>Fim</th></tr></thead>
+                <tbody id="lista-ferias"></tbody>
+            </table>
+        </section>
+
+        <section id="metas">
+            <h2>Metas e Limites por Funcionário</h2>
+            
+            <div class="form-container">
+                <h3>Definir para Todos os Funcionários</h3>
+                <input type="number" id="meta-fixo-global" placeholder="Meta de Fixo p/ Todos" min="0">
+                <input type="number" id="max-suplente-global" placeholder="Máx. Suplente p/ Todos" min="0">
+                <span class="total-display">| <strong>Total:</strong> <span id="total-global-display">0</span></span>
+                <button type="button" id="aplicar-metas-globais-btn">Aplicar a Todos</button>
+            </div>
+
+            <div class="form-container" style="margin-top: 20px;">
+                <h3>Edição Individual (Clique na linha da tabela)</h3>
+                <form id="form-metas" autocomplete="off">
+                    <select id="funcionario-meta-select" required>
+                        <option value="">Selecione um funcionário</option>
+                    </select>
+                    <input type="number" id="meta-fixo" placeholder="Meta de Fixo" min="0" required>
+                    <input type="number" id="max-suplente" placeholder="Máx. Suplente" min="0" required>
+                    <span class="total-display">| <strong>Total:</strong> <span id="total-individual-display">0</span></span>
+                    <button type="submit" id="salvar-meta-btn">Salvar Meta/Limite</button>
+                    <button type="button" id="excluir-meta">Excluir selecionado</button>
+                </form>
+            </div>
+
+            <table class="excel-table" aria-label="Metas e Limites">
+                <thead>
+                    <tr>
+                        <th>Nome</th><th>Meta Fixo</th><th>Máx. Suplente</th><th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-metas"></tbody>
+            </table>
+        </section>
+
+        <section id="feriados">
+            <h2>Feriados Nacionais (<span id="ano-feriado"></span>)</h2>
+            <table class="excel-table" aria-label="Feriados calculados">
+                <thead><tr><th>Data</th><th>Nome</th></tr></thead>
+                <tbody id="lista-feriados"></tbody>
+            </table>
+        </section>
+
+        <section id="escala">
+            <h2>Escala de Funcionários</h2>
+            <div id="escala-controles">
+                <label>Mês:
+                    <select id="mes-select">
+                        <option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option>
+                        <option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option>
+                        <option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option>
+                        <option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
+                    </select>
+                </label>
+                <label>Ano:
+                    <input type="number" id="ano-input" min="1900" max="2100" step="1">
+                </label>
+                <button id="gerar-escala-btn" type="button">Gerar Escala</button>
+                <button id="embaralhar" type="button">🔄 Embaralhar</button>
+                <button id="salvar" type="button">💾 Salvar</button>
+                <button id="baixar-excel-btn" type="button">⬇️ Baixar Excel</button>
+                <button id="baixar-pdf-btn" type="button">📄 Baixar PDF</button> </div>
+
+            <h3 id="titulo-escala"></h3>
+            <div id="resumo-ferias-mes"></div> <table class="excel-table" id="tabela-escala-container">
+                <thead>
+                    <tr>
+                        <th>Dia</th><th>Dia da Semana</th><th>Senha</th><th>Fixo 1</th><th>Fixo 2</th>
+                        <th>1° Suplente</th><th>2° Suplente</th><th>3° Suplente</th><th>4° Suplente</th><th>5° Suplente</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-escala"></tbody>
+            </table>
+        </section>
+
+        <section id="resumo">
+            <h2>Resumo de Escalação</h2>
+            <table class="excel-table" id="tabela-resumo-container" aria-label="Resumo de Escalação">
+                <thead>
+                    <tr>
+                        <th>Funcionário</th><th>Fixo (Real / Meta)</th><th>Suplente (Real / Limite)</th>
+                        <th>Total de Turnos</th><th>Desvio do Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-resumo"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Escalonamento de Funcionários</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

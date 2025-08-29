@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyro - Ponto Eletrônico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="menu-navegacao">
+        <ul>
+            <li><a href="#ponto" class="nav-link active">Ponto Eletrônico</a></li>
+            <li><a href="#cadastro" class="nav-link">Cadastrar Funcionário</a></li>
+            <li><a href="#ferias" class="nav-link">Lançar Férias</a></li>
+            <li><a href="#feriados" class="nav-link">Feriados</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="ponto" class="page active">
+            <header class="page-header">
+                <h2>Folhas de Frequência</h2>
+                <div class="controles-data">
+                    <label for="mes">Mês:</label>
+                    <select id="mes"></select>
+                    <label for="ano">Ano:</label>
+                    <select id="ano"></select>
+                </div>
+            </header>
+            
+            <div class="area-botoes-acao">
+                <button id="btn-salvar" class="btn-acao">Salvar Dados</button>
+                <button id="btn-pdf" class="btn-acao">Baixar PDF</button>
+                <button id="btn-excel" class="btn-acao">Baixar Excel</button>
+            </div>
+
+            <div id="container-pontos">
+                </div>
+        </section>
+
+        <section id="cadastro" class="page">
+            <header class="page-header">
+                <h2>Adicionar Novo Funcionário</h2>
+            </header>
+            <form id="form-cadastro">
+                <input type="text" id="novo-nome" placeholder="Nome completo" required>
+                <input type="text" id="nova-matricula" placeholder="Número da matrícula" required>
+                <button type="submit">Cadastrar Funcionário</button>
+            </form>
+        </section>
+
+        <section id="ferias" class="page">
+            <header class="page-header">
+                <h2>Registrar Férias</h2>
+            </header>
+            <form id="form-ferias">
+                <select id="funcionario-ferias" required>
+                    <option value="" disabled selected>Selecione um funcionário</option>
+                </select>
+                <label>Data de Início: <input type="date" id="ferias-inicio" required></label>
+                <label>Data de Fim: <input type="date" id="ferias-fim" required></label>
+                <button type="submit">Registrar Férias</button>
+            </form>
+        </section>
+
+        <section id="feriados" class="page">
+             <header class="page-header">
+                <h2>Feriados Nacionais</h2>
+                <p>A lista abaixo mostra os feriados e pontos facultativos nacionais para o ano selecionado.</p>
+            </header>
+            <h3>Feriados de <span id="ano-feriado-titulo"></span></h3>
+            <div id="lista-feriados">
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Ponto Eletrônico</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
