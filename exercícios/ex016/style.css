@@ -1,0 +1,33 @@
+@charset "UTF-8"; /* pode acentuações */
+
+* {
+    font-family: Arial, Helvetica, sans-serif; /* coloca o símbolo * para formatar para todo o site */
+}
+
+body {
+    background-image: linear-gradient(to right, #9BF2EA, #275950); /* gradiente de cores do fundo */
+}
+
+main {
+    background-color: white; /* background do seu main */
+    border-radius: 20px; /* arredondando as bordas */
+    box-shadow: 10px 10px 10px #2A8C82;
+    width: 600px; /* tamanho da caixa branca de texto */
+    padding: 10px; /* colocando uma margem a mais */
+    margin: auto; /* colocando sempre no centro */
+}
+
+h1 {
+    color: #260101; /* cor do texto */
+    text-align: center; /* alinhamento no centro */
+    text-shadow: 1px 1px 2px #1d010186; /* colocando sombra no texto */
+}
+
+h2 {
+    color: #260101; /* colocando cor em h2 */
+}
+
+
+p {
+    text-align: justify; /* alinhando o parágrafo */
+}

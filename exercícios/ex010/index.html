@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhando com links</title>
+</head>
+<body>
+    <h1>Usando links externos</h1>
+    <p>Você pode acessar meu <a href="https://gustavoguanabara.github.io/" target="_blank" rel="external">repositório <!--para link externos, target para janela em branco e rel, pois é um link externo-->público do GitHub</p>
+    </a> <!--criar link-->
+    <h1>Usando links internos</h1>
+    <p>Esta é a primeira página do site. Se você quiser, pode acessar também a minha <a href="pag002.html" rel="next" target="_self">segunda página</a></p> <!--ir para a próxima página criando um novo html dentro da pasta e rel next informando que irá para a próxima página-->
+    <p>Você também pode acessar nossa <a href="notícias/pag003.html" rel="next" target="_self">terceira página</a></p> <!--target _self dizendo que é para a própria página e utilizando as teclas ctrl e espaço para colocar o endereço da página-->
+    <h2>Links para download</h2>
+    <ul>
+        <li><a href="livros/Trilha_Aluno.pdf" download="Trilha_Aluno" type="application/pdf">Baixar o livro em PDF</a></li> <!--download em pdf-->
+        <li><a href="livros/PDFTools.zip" download="PDFTools" type="application/zip">Livro compactado em ZIP</a></li> <!--download em zip-->
+    </ul>
+</body>
+</html>

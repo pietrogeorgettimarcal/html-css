@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Caixas</title>
+    <style>
+        h1 { /* box-level */
+            display: block; /* O display muda a anatomia do corpo, block(box), inline, inline-block, dentre outros */
+            background-color: lightgray;
+            height: 300px;
+            width: 300px;
+
+            border: 10px solid darkslategray;
+
+            padding: 10px 10px 10px 10px; 
+            /*
+                Em padding, a ordem dos valores é: topo, direita, baixo, esquerda. 
+
+                E se houver apenas um valor, ele vale para os quatro lados.
+                Se houver dois valores, o primeiro vale para cima e baixo, o segundo para direita e esquerda.
+            */
+            
+            margin: 20px auto 40px auto;
+
+            outline: 5px dashed blue;
+
+        }
+
+        a { /* inline-level */
+            border: 10px solid darkslategray;
+
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exemplo de caixa box-level</h1>
+    <p>Parágrafos também são exemplos de box-level, mas os <a href="#">links são exemplos de caixas inline-level</a>. Vamos ver como tudo isso funciona</p>
+</body>
+</html>

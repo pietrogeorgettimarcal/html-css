@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mídias em HTML5</title>
+</head>
+<body>
+    <h1>Imagem dinâmica</h1>
+    <p>Tente abrir esse site em vários dispositivos ou simplesmente aumente e diminua o tamanho do seu navegador</p>
+
+    <picture>
+        <source media="(max-width: 750px )" srcset="imagens/foto-p.png" type="image/png"> <!--a mídia é menor e tem que estar acima de uma mídia maior, ordem crescente, do menor para o maior-->
+        <source media="(max-width: 1050px )" srcset="imagens/foto-m.png" type="image/png"> <!--para carregar a melhor imagem, dependendo do tamanho da tela max-width para maior tamanho e 1050px, pois a imagem selecionada tem 1000x1000,colocando 50px de folga e colocar type image/png pois o arquivo é em png-->
+        <img src="imagens/foto-g.png" alt="Imagem flexível">
+    </picture> <!--imagem com várias fontes-->
+
+    <h1>Reproduzindo audio</h1>
+    <h2>Vamos aprender a reproduzir áudios em HTML5</h2>
+    <p>Tem duas formas de colocar audio</p>
+
+    <audio src="midia/nebula.mp3" autoplay controls></audio> <!--autoplay para tocar automaticamente e controls para controlar e dar play-->
+    
+    <audio preload="metadata" autoplay controls loop> <!--auto so carrega o site quando acabar o audio, none não carrega nada somente quando der o play e metadata carregar somente o nome do arquivo duração--> <!--loop para colocar o audio em loop-->
+        <source src="midia/nebula.mp3" type="audio/mpeg"><!--tentará carregar o primeiro audio primeiro-->
+        <source src="midia/nebula.ogg" type="audio/ogg"><!--depois tentará carregar o segundo audio-->
+        <source src="midia/nebula.wav" type="audio/wav"><!--depois tentará carregar o terceiro audio-->
+    </audio>
+    <p>Caso não carregue nenhum, seu navegador não tem suporte para audio</p>
+</body>
+</html>
